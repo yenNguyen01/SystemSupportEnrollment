@@ -20,12 +20,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author admin
+ * @author Computer
  */
 @Entity
 @Table(name = "score")
@@ -45,21 +46,30 @@ public class Score implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "year")
     private Integer year;
+
     @Column(name = "score")
-    private Integer score;
+    private Float score;
+
     @Size(max = 500)
     @Column(name = "note")
     private String note;
+
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+
     @JoinColumn(name = "major_id", referencedColumnName = "id")
     @ManyToOne
     private Majors majorId;
 
+    @Transient
+    private int majId;
+
     public Score() {
+        createDate = new Date();
     }
 
     public Score(Integer id) {
@@ -82,11 +92,11 @@ public class Score implements Serializable {
         this.year = year;
     }
 
-    public Integer getScore() {
+    public Float getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Float score) {
         this.score = score;
     }
 
@@ -114,6 +124,20 @@ public class Score implements Serializable {
         this.majorId = majorId;
     }
 
+    /**
+     * @return the majId
+     */
+    public int getMajId() {
+        return majId;
+    }
+
+    /**
+     * @param majId the majId to set
+     */
+    public void setMajId(int majId) {
+        this.majId = majId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -138,5 +162,5 @@ public class Score implements Serializable {
     public String toString() {
         return "com.topic14.pojo.Score[ id=" + id + " ]";
     }
-    
+
 }

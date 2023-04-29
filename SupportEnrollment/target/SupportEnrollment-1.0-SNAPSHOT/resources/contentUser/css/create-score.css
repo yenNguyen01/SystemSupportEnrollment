@@ -1,0 +1,31 @@
+.title-create{
+    text-align: center;
+    color: #1d559f;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+form{
+    width: 650px;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    border: 1px solid #1d559f;
+    border-radius: 10px;
+}
+
+.back a{
+    text-decoration: none;
+}
+
+.fa-arrow-left{
+    display: none;
+}
+
+.back a:hover{
+    text-transform: uppercase;
+    color: orange;
+}
+
+.back a:hover i{
+    display: inline;
+}

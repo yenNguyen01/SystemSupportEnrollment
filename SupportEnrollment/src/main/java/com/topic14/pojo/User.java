@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author admin
+ * @author Computer
  */
 @Entity
 @Table(name = "user")
@@ -72,6 +72,8 @@ public class User implements Serializable {
     private Date createDate;
     @OneToMany(mappedBy = "userId")
     private Set<Notification> notificationSet;
+    @OneToMany(mappedBy = "userId")
+    private Set<Answer> answerSet;
     @OneToMany(mappedBy = "userId")
     private Set<Post> postSet;
     @OneToMany(mappedBy = "userId")
@@ -159,6 +161,15 @@ public class User implements Serializable {
 
     public void setNotificationSet(Set<Notification> notificationSet) {
         this.notificationSet = notificationSet;
+    }
+
+    @XmlTransient
+    public Set<Answer> getAnswerSet() {
+        return answerSet;
+    }
+
+    public void setAnswerSet(Set<Answer> answerSet) {
+        this.answerSet = answerSet;
     }
 
     @XmlTransient

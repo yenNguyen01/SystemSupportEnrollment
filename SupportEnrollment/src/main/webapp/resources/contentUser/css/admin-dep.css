@@ -1,0 +1,56 @@
+.fa-pencil-square{
+    color: blue;
+}
+
+.fa-trash{
+    color: red
+}
+
+.title-list-dep{
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: #2f4d5a;
+    font-size: 32px;
+}
+.search-fm{
+    width: 80%;
+    margin: 1rem auto;
+    margin-bottom: 2rem;
+}
+
+.search-fm > div:nth-child(1){
+
+}
+
+.search-fm > div:nth-child(1) a{
+    padding: 10px 40px;
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: #1d559f;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: sticky;
+    top: 50%;
+}
+
+.search-fm > div:nth-child(1) a:hover{
+    color: lightgray;
+    background-color: rgba(29, 85, 159, 0.95);
+}
+
+.search-fm > div:nth-child(2) input{
+    padding: 8px;
+    padding-left: 40px;
+    border:1px solid;
+    border-radius: 15px;
+    width: 90%;
+}
+
+.fa-search{
+    position: relative;
+    top: 1%;
+    left: 35px;
+}

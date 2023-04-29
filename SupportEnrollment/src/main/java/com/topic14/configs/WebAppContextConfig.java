@@ -5,6 +5,8 @@
  */
 package com.topic14.configs;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -53,7 +55,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/contentUser/js/**").addResourceLocations("/resources/contentUser/js/");
+        registry.addResourceHandler("/contentUser/css/**").addResourceLocations("/resources/contentUser/css/");
+        registry.addResourceHandler("/contentUser/img/**").addResourceLocations("/resources/contentUser/img/");
+        registry.addResourceHandler("/contentUser/lib/**").addResourceLocations("/resources/contentUser/lib/");
     }
 
 //    @Bean
@@ -92,6 +97,16 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         return resolver;
     }
 
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "dp50hyprx",
+                        "api_key", "919543544232649",
+                        "api_secret", "UCT8SrEd9xOE3FuTYo1f4AUamhk",
+                        "secure", true));
+        return cloudinary;
+    }
 //    @Override
 //    public void addFormatters(FormatterRegistry registry) {
 //        registry.addFormatter(new CategoryFormatter());

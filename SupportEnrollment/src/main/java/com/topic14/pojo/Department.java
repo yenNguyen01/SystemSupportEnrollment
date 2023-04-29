@@ -5,10 +5,12 @@
  */
 package com.topic14.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,13 +22,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author admin
+ * @author Computer
  */
 @Entity
 @Table(name = "department")
@@ -48,28 +52,49 @@ public class Department implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 200)
     @Column(name = "name")
     private String name;
+    
     @Size(max = 5000)
     @Column(name = "description")
     private String description;
+    
     @Size(max = 200)
     @Column(name = "website")
     private String website;
+    
     @Size(max = 200)
     @Column(name = "embed_video")
     private String embedVideo;
+    
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
+    
     private Date createDate;
     @Column(name = "modify_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifyDate;
-    @OneToMany(mappedBy = "departmentId")
-    private Set<Majors> majorsSet;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "departmentId")
+    @JsonIgnore
+    private Set<Majors> majorsSet;   
+    
+    @Size(max = 2000)
+    @Column(name = "image")
+    private String image;
+    
+    @Column(name = "isActive")
+    private boolean isActive;
+    
+    @Transient
+    private MultipartFile file;
 
     public Department() {
+        this.createDate = new Date();
+        this.modifyDate = new Date();
+        this.isActive = true;
     }
 
     public Department(Integer id) {
@@ -140,7 +165,48 @@ public class Department implements Serializable {
     public void setMajorsSet(Set<Majors> majorsSet) {
         this.majorsSet = majorsSet;
     }
+    
+    /**
+     * @return the image
+     */
+    public String getImage() {
+        return image;
+    }
 
+    /**
+     * @param image the image to set
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
+ /**
+     * @return the isActive
+     */
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    /**
+     * @param isActive the isActive to set
+     */
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

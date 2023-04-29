@@ -29,6 +29,15 @@
                         <a href="404.html" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
+                <a href="<c:url value="/department-major-score"/>" class="nav-item nav-link">Thông Tin Khoa</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Quản Lý</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="<c:url value="/admin/departments"/>" class="dropdown-item">Khoa </a>
+                        <a href="<c:url value="/admin/majors"/>" class="dropdown-item">Ngành</a>
+                        <a href="<c:url value="/admin/scores"/>" class="dropdown-item">Điểm Chuẩn</a>
+                    </div>
+                </div>
                 <a href="contact.html" class="nav-item nav-link">Tin tức sự kiện</a>
             </div>
             <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>

@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author admin
+ * @author Computer
  */
 @Entity
 @Table(name = "post")
@@ -81,8 +81,6 @@ public class Post implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
-    @OneToMany(mappedBy = "postId")
-    private Set<Question> questionSet;
     @OneToMany(mappedBy = "postId")
     private Set<Comment> commentSet;
     @OneToMany(mappedBy = "postId")
@@ -181,15 +179,6 @@ public class Post implements Serializable {
 
     public void setUserId(User userId) {
         this.userId = userId;
-    }
-
-    @XmlTransient
-    public Set<Question> getQuestionSet() {
-        return questionSet;
-    }
-
-    public void setQuestionSet(Set<Question> questionSet) {
-        this.questionSet = questionSet;
     }
 
     @XmlTransient

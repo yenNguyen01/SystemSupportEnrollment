@@ -11,5 +11,37 @@
     <definition name="home" extends="baseLayoutUser">
         <put-attribute name="title" value="Trang chủ" />
         <put-attribute name="content" value="/WEB-INF/pages/home.jsp" />
-    </definition>    
+    </definition>  
+    <definition name="admin-dep" extends="baseLayoutUser">
+        <put-attribute name="title" value="Quản lý khoa" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin-dep.jsp" />
+    </definition>
+    <definition name="create-dep" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thêm thông tin khoa" />
+        <put-attribute name="content" value="/WEB-INF/pages/create-dep.jsp" />
+    </definition>
+    <definition name="admin-major" extends="baseLayoutUser">
+        <put-attribute name="title" value="Quản lý ngành" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin-major.jsp" />
+    </definition>
+    <definition name="create-major" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thêm thông tin ngành" />
+        <put-attribute name="content" value="/WEB-INF/pages/create-major.jsp" />
+    </definition> 
+    <definition name="admin-score" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thông tin điểm" />
+        <put-attribute name="content" value="/WEB-INF/pages/admin-score.jsp" />
+    </definition>
+    <definition name="create-scores" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thêm thông tin điểm" />
+        <put-attribute name="content" value="/WEB-INF/pages/create-scores.jsp" />
+    </definition> 
+    <definition name="user-dep-ma-sco" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thông tin khoa-ngành-điểm" />
+        <put-attribute name="content" value="/WEB-INF/pages/user-dep-ma-sco.jsp" />
+    </definition>  
+    <definition name="user-major-score" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thông tin ngành-điểm" />
+        <put-attribute name="content" value="/WEB-INF/pages/user-major-score.jsp" />
+    </definition>      
 </tiles-definitions>

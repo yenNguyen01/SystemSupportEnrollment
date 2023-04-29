@@ -13,6 +13,7 @@
     <class>com.topic14.pojo.User</class>
     <class>com.topic14.pojo.Notification</class>
     <class>com.topic14.pojo.Reply</class>
+    <class>com.topic14.pojo.Answer</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/topic14db?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

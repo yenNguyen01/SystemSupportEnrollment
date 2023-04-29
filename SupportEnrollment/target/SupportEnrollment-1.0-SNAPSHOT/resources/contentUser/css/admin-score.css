@@ -1,0 +1,24 @@
+.filter-major > div:nth-child(2) > button{
+    width: 46%;
+}
+
+.btn-create{
+    text-align: right;
+}
+
+.btn-create a{
+    text-decoration: none;
+    padding: 12px 60px;
+    border-radius: 15px;
+    background-color: blue;
+    color: lightgray;
+    font-weight: bold;
+    position: relative;
+    right: 1%;
+}
+
+.btn-create a:hover{
+    background-color: #6DA9E4;
+    color: darkblue;
+}
+

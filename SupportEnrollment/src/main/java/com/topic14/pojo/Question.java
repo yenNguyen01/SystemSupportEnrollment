@@ -7,6 +7,7 @@ package com.topic14.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,15 +18,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author admin
+ * @author Computer
  */
 @Entity
 @Table(name = "question")
@@ -56,9 +59,11 @@ public class Question implements Serializable {
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    @JoinColumn(name = "post_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "questionId")
+    private Set<Answer> answerSet;
+    @JoinColumn(name = "noti_id", referencedColumnName = "id")
     @ManyToOne
-    private Post postId;
+    private Notification notiId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
@@ -110,12 +115,21 @@ public class Question implements Serializable {
         this.createDate = createDate;
     }
 
-    public Post getPostId() {
-        return postId;
+    @XmlTransient
+    public Set<Answer> getAnswerSet() {
+        return answerSet;
     }
 
-    public void setPostId(Post postId) {
-        this.postId = postId;
+    public void setAnswerSet(Set<Answer> answerSet) {
+        this.answerSet = answerSet;
+    }
+
+    public Notification getNotiId() {
+        return notiId;
+    }
+
+    public void setNotiId(Notification notiId) {
+        this.notiId = notiId;
     }
 
     public User getUserId() {

@@ -19,13 +19,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author admin
+ * @author Computer
  */
 @Entity
 @Table(name = "majors")
@@ -37,24 +38,31 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Majors.findByName", query = "SELECT m FROM Majors m WHERE m.name = :name")})
 public class Majors implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 100)
     @Column(name = "code")
     private String code;
+    
     @Size(max = 200)
     @Column(name = "name")
     private String name;
+    
     @OneToMany(mappedBy = "majorId")
     private Set<Score> scoreSet;
+    
     @JoinColumn(name = "department_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Department departmentId;
 
+    @Transient
+    private int departId;
     public Majors() {
     }
 
@@ -102,6 +110,20 @@ public class Majors implements Serializable {
     public void setDepartmentId(Department departmentId) {
         this.departmentId = departmentId;
     }
+    
+        /**
+     * @return the departId
+     */
+    public int getDepartId() {
+        return departId;
+    }
+
+    /**
+     * @param departId the departId to set
+     */
+    public void setDepartId(int departId) {
+        this.departId = departId;
+    }
 
     @Override
     public int hashCode() {
@@ -109,6 +131,8 @@ public class Majors implements Serializable {
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
+    
+    
 
     @Override
     public boolean equals(Object object) {
