@@ -11,5 +11,21 @@
     <definition name="home" extends="baseLayoutUser">
         <put-attribute name="title" value="Trang chủ" />
         <put-attribute name="content" value="/WEB-INF/pages/home.jsp" />
-    </definition>    
+    </definition>
+    <definition name="login" extends="baseLayoutUser">
+        <put-attribute name="title" value="Đăng nhập" />
+        <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+    </definition>  
+    <definition name="register" extends="baseLayoutUser">
+        <put-attribute name="title" value="Đăng ký" />
+        <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
+    </definition>
+    <definition name="detailPost" extends="baseLayoutUser">
+        <put-attribute name="title" value="" />
+        <put-attribute name="content" value="/WEB-INF/pages/detailPost.jsp" />
+    </definition>
+        <definition name="managePost" extends="baseLayoutUser">
+        <put-attribute name="title" value="" />
+        <put-attribute name="content" value="/WEB-INF/pages/managePost.jsp" />
+    </definition>     
 </tiles-definitions>
