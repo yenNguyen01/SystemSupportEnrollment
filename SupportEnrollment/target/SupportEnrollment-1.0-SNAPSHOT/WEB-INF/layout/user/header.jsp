@@ -22,25 +22,35 @@
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Chương trình đào tạo</a>
                 <div class="dropdown-menu fade-down m-0">
                     <c:forEach items="${categories}" var="c">
-                        <a href="team.html" class="dropdown-item">${c.name}</a>
+                        <a href="<c:url value="/category/${c.id}" />" class="dropdown-item">${c.name}</a>
                     </c:forEach>
                 </div>
             </div>
-            <a href="contact.html" class="nav-item nav-link">Tin tức sự kiện</a>
         </div>
         <se:authorize access="hasRole('ROLE_ADMIN')">
-            <a class="nav-item nav-link" href="<c:url value="/admin/posts" />">Post</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Quản trị</a>
+                <div class="dropdown-menu fade-down m-0">
+                    <a href="<c:url value="/admin/posts" />" class="dropdown-item">Post</a>
+                    <a href="<c:url value="/admin/banners" />" class="dropdown-item">Banner</a>
+                    <a href="<c:url value="/admin/users" />" class="dropdown-item">User</a>
+                </div>
+            </div>
         </se:authorize>
         <c:choose>
             <c:when test="${pageContext.request.userPrincipal.name == null}">
-                    <a class="nav-link text-danger" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block" href="<c:url value="/login" />">Đăng nhập</a>
+                <a class="nav-link text-danger" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block" href="<c:url value="/login" />">Đăng nhập</a>
             </c:when>
             <c:when test="${pageContext.request.userPrincipal.name != null}">
-                    <a class="nav-link text-danger" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
-                    <a class="nav-link text-success" href="<c:url value="/logout" />">Đăng xuất</a>
+                <a class="nav-link text-danger" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
+                <a class="nav-link text-success" href="<c:url value="/logout" />">Đăng xuất</a>
             </c:when>
         </c:choose>
-        
+                <c:url value="/" var="action" />
+                <form class="d-flex" action="${action}">
+                    <input class="form-control me-2" type="text" name="kw" placeholder="Nhập tên...">
+                    <button class="btn btn-primary" type="submit">Tìm</button>
+                </form>
     </div>
 </nav>  
 </header>

@@ -7,101 +7,77 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<c:url value="/admin/managePost" var="action" />
+<c:url value="/admin/posts" var="action" />
 <c:if test="${errMsg != null}">
     ${errMsg}
 </c:if>
 <br>  
 <h1 class="text-center text-success"> QUẢN TRỊ BÀI ĐĂNG </h1>
-
+<c:url value="/admin/posts" var="action" />
+<form class="d-flex" action="${action}">
+    <input class="form-control me-2" type="text" name="kw" placeholder="Nhập tên...">
+    <button class="btn btn-primary" type="submit">Tìm</button>
+</form>
 <div class="container mt-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-        Add new
-    </button>
+     <div class="col-md-3 col-4">
+        <a href="<c:url value="/admin/posts/addNew"/>"><i class="fa fa-plus me-2" aria-hidden="true"></i>Add new</a>
+    </div>
 </div>
 <table class="table">
     <tr>
-        <th></th>
         <th>Id</th>
+        <th>Image</th>
         <th>Title</th>
-        <th>Content</th>
         <th>Category</th>
         <th></th>
     </tr>
-    <c:forEach items="${posts}" var="p">
-        <tr id="product${p.id}">
-            <!--<td><img src="${p.title}" width="200" /></td>-->
-            <td></td>
+    <c:forEach items="${pagination.getPage()}" var="p">
+        <c:url value="/admin/posts/update/${p.id}" var="update"/>
+        <tr id="post${p.id}">
             <td>${p.id}</td>
+            <td>
+                <c:if test="${p.image != null}">
+                  <img src="${p.image}" width="200" />
+              </c:if>
+              <c:if test="${p.image == null}"> 
+                  <img src="https://tuyensinh.ou.edu.vn/tmp/rscache/350x183-no_picture.png" class="img-fluid" width="400px">
+              </c:if>
+                
+            </td>
             <td>${p.title}</td>
-            <td>${p.content}</td>
-            <c:forEach items="${categories}" var="c">
-                <c:choose>
-                    <c:when test="${p.categoryId.id == c.id}">
+                <c:forEach items="${categories}" var="c">
+                    <c:choose>
+                        <c:when test="${p.categoryId.id == c.id}">
                         <td value="${c.id}" selected>${c.name}</td>
                     </c:when>
-                </c:choose>
-            </c:forEach>
-            <!--        <td>
-            <c:url value="/api/products/${p.id}" var="endpoint" />
-            <input type="button" onclick="deleteProduct('${endpoint}', ${p.id})" value="Xóa" class="btn btn-danger" />
-            <a href="<c:url value="/admin/products/${p.id}" />" class="btn btn-info">Cập nhật</a>
-        </td>-->
+                    </c:choose>
+                </c:forEach>
+            <td style="width:200px">
+                <c:url value="/api/posts/${p.id}" var="endpoint" />
+                <input type="button" onclick="deletePost('${endpoint}', ${p.id})" value="Xóa" class="btn btn-danger" />
+                <a href="<c:url value="/admin/posts/${p.id}" />" class="btn btn-info">Cập nhật</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
-
-
-<!-- The Modal -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog" style="max-width: 800px">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header" style="background-color: #1150A0;">
-                <h4 class="modal-title">Thêm mới bài đăng</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form:form method="post" action="${action}" enctype="multipart/form-data" modelAttribute="post">
-                    <div class="form-floating mb-3 mt-3">
-                        <form:input type="text" class="form-control" id="title" 
-                                    path="title" placeholder="Title" name="title" />
-                        <label for="title">Tiêu đề</label>
-                    </div>
-                    <div class="form-floating mb-3 mt-3">
-                        <form:textarea type="text" class="form-control" id="content" rows="5"
-                                       path="content" placeholder="Giá sản phẩm" name="content" ></form:textarea>
-                        <label for="content">Nội dung</label>
-                    </div>
-                    <div class="form-floating">
-                        <form:select class="form-select" path="categoryId" id="categoryId" name="categoryId">
-                            <c:forEach items="${categories}" var="c">
-                                <c:choose>
-                                    <c:when test="${post.categoryId.id == c.id}">
-                                        <option value="${c.id}" selected>${c.name}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${c.id}">${c.name}</option>
-                                    </c:otherwise>
-                                </c:choose>
-
-                            </c:forEach>
-                        </form:select>
-                        <label for="categoryId" class="form-label">Danh mục bài đăng</label>
-                    </div>
-                </form:form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
+    
+<div>
+<ul class="pagination pagination-lg">
+        <c:if test="${pagination.hasPreviousPage()}">
+        <li class="page-item"><a class="page-link" href="<c:url value="?pageNo=${pagination.getPreviousPage().getPageNo()}"/>">Previous</a></li>
+        </c:if>
+        <c:forEach begin="1" end="${pagination.getTotalPages()}" var="page">
+        <li class="${page == pagination.getPageNo() ? 'page-item active' : 'page-item'}"><a class="page-link" href="<c:url value="?pageNo=${page}&amp;pageSize=${pagination.getPageSize()}"/>">${page}</a>
+        </c:forEach>
+        <c:if test="${pagination.hasNextPage()}">
+        <li class="page-item"><a class="page-link" href="<c:url value="?pageNo=${pagination.getNextPage().getPageNo()}"/>">Next</a></li>
+        </c:if>
+    <!--<li class="page-item"><a class="page-link" href="<c:url value="?pageNo=${pagination.getTotalPages()}"/>">Last</a></li>-->
+</ul>
 </div>
+
+<script src="<c:url value="/js/post.js" />"></script>
+
+
+

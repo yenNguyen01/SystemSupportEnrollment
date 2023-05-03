@@ -14,8 +14,11 @@ import java.util.Map;
  * @author admin
  */
 public interface PostService {
-    List<Post> getPosts();
+    List<Post> getPosts(Map<String, String> params);
+    List<Post> getPostsByCategory(int cateId);
     List<Post> getInforSchool();
     Post getPostById(int id);
-    boolean addOrUpdatePost(Post p);
+    boolean addNewPost(Post p);
+    boolean UpdatePost(Post p);
+    boolean deletePost(int id);
 }

@@ -7,6 +7,7 @@ package com.topic14.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.topic14.handlers.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,13 +30,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = {
     "com.topic14.controllers",
     "com.topic14.repository",
-    "com.topic14.service"
+    "com.topic14.service",
+    "com.topic14.handlers"
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
-
+    
+    @Autowired
+    private LoginSuccessHandler loginHandler;
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -53,6 +57,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("passWord");
         http.formLogin().defaultSuccessUrl("/")
                 .failureUrl("/login?error");
+        http.formLogin().successHandler(this.loginHandler).failureUrl("/login?error");
         http.logout().logoutSuccessUrl("/login");
         http.exceptionHandling()
                 .accessDeniedPage("/login?accessDenied");

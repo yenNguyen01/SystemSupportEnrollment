@@ -7,6 +7,7 @@ package com.topic14.repository;
 
 import com.topic14.pojo.User;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,4 +16,6 @@ import java.util.List;
 public interface UserRepository {
     boolean registerUser(User user);
     User getUserByUsername(String username);
+    List<User> getUsers(Map<String, String> params);
+    boolean UpdateUser(User p);
 }

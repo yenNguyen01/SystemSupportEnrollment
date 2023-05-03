@@ -5,6 +5,7 @@
  */
 package com.topic14.repository.impl;
 
+import com.topic14.pojo.Category;
 import com.topic14.pojo.Post;
 import com.topic14.repository.PostRepository;
 import com.topic14.repository.UserRepository;
@@ -31,50 +32,59 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class PostRepositoryImpl implements PostRepository{
+public class PostRepositoryImpl implements PostRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public List<Post> getPosts() {
+    public List<Post> getPosts(Map<String, String> params) {
         Session s = factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<Post> q = b.createQuery(Post.class);
         Root root = q.from(Post.class);
         q.select(root);
-        List<Predicate> predicates = new ArrayList<>();
-//        String cateId = params.get("categoryId");
-//        if (cateId != null) {
-//            Predicate p = b.lessThanOrEqualTo(root.get("categoryId"), Integer.parseInt(cateId));
-//            predicates.add(p);
-//        }
-        q.orderBy(b.desc(root.get("categoryId")));
-        Query query = s.createQuery(q);
-        List<Post> posts = query.getResultList();
         
+        if (params != null) {
+        List<Predicate> predicates = new ArrayList<>();
+         String kw = params.get("kw");
+            if (kw != null && !kw.isEmpty()) {
+                Predicate p = b.like(root.get("title").as(String.class),
+                        String.format("%%%s%%", kw));
+                predicates.add(p);
+            }
+        String cateId = params.get("categoryId");
+        if (cateId != null) {
+            Predicate p = b.lessThanOrEqualTo(root.get("categoryId"), Integer.parseInt(cateId));
+            predicates.add(p);
+            }
+        q.where(predicates.toArray(Predicate[]::new));
+        }
+        q.orderBy(b.desc(root.get("id")));
+        Query query = s.createQuery(q);
+                
+        List<Post> posts = query.getResultList();
+
         return posts;
     }
 
     @Override
     public Post getPostById(int id) {
-       Session s = this.factory.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
         return s.get(Post.class, id);
     }
 
     @Override
-    public boolean addOrUpdatePost(Post p) {
-         Session s = this.factory.getObject().getCurrentSession();
+    public boolean addNewPost(Post p) {
+        Session s = this.factory.getObject().getCurrentSession();
         try {
-            if (p.getId() > 0)
-                s.update(p);
-            else
-                p.setCreateDate(new Date());
-                p.setUserId(userRepository.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-                s.save(p);
-            
+            p.setCreateDate(new Date());
+            p.setIsActive(Boolean.TRUE);
+            s.save(p);
+
             return true;
         } catch (HibernateException ex) {
             return false;
@@ -91,5 +101,37 @@ public class PostRepositoryImpl implements PostRepository{
         q.setParameter("ten", "Giới thiệu");
         return q.getResultList();
     }
-    
+
+    @Override
+    public boolean deletePost(int id) {
+        Post p = this.getPostById(id);
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            s.delete(p);
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean UpdatePost(Post p) {
+           Session s = this.factory.getObject().getCurrentSession();
+        try {
+            p.setModifyDate(new Date());
+            s.update(p);
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
+    }
+
+    @Override
+    public List<Post> getPostsByCategory(int cateId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From Post Where categoryId.id=:cateId");
+        q.setParameter("cateId", cateId);
+        return q.getResultList();
+    }
+
 }
