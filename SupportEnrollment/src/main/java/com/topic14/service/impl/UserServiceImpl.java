@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerUser(User user) {
-        if (user.getFile() != null) {
+        if (!user.getFile().isEmpty()) {
             try {
                 Map rs = this.cloudinary.uploader().upload(user.getFile().getBytes(),
                         ObjectUtils.asMap("resource_type", "auto"));
@@ -47,7 +47,9 @@ public class UserServiceImpl implements UserService {
             } catch (IOException ex) {
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }else{
+               user.setAvatar("https://www.seekpng.com/png/detail/73-730482_existing-user-default-avatar.png");
+           }
         return this.userRepository.registerUser(user);
     }
 
@@ -63,6 +65,30 @@ public class UserServiceImpl implements UserService {
         authorities.add(new SimpleGrantedAuthority(user.getRole()));
         return new org.springframework.security.core.userdetails.User(
                 user.getUserName(), user.getPassWord(), authorities);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return this.userRepository.getUserByUsername(username);
+    }
+
+    @Override
+    public List<User> getUsers(Map<String, String> params) {
+        return this.userRepository.getUsers(params);
+    }
+
+    @Override
+    public boolean UpdateUser(User user) {
+           if (!user.getFile().isEmpty()) {
+            try {
+                Map rs = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                        ObjectUtils.asMap("resource_type", "auto"));
+                user.setAvatar(rs.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return this.userRepository.UpdateUser(user);
     }
 
 }

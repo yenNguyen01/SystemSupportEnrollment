@@ -24,6 +24,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -56,13 +57,16 @@ public class User implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 50)
+    @NotNull(message = "{err.null}")
     @Column(name = "userName")
     private String userName;
     @Size(max = 100)
+    @NotNull(message = "{err.null}")
     @Column(name = "passWord")
     private String passWord;
     //@Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 100)
+    @NotNull(message = "{err.null}")
     @Column(name = "email")
     private String email;
     @Size(max = 200)
@@ -87,6 +91,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "userId")
     private Set<Reply> replySet;
     @Column(name = "name")
+    @NotNull(message = "{err.null}")
     private String name;
     
     @Transient

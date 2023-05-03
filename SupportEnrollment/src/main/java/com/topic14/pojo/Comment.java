@@ -5,6 +5,7 @@
  */
 package com.topic14.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -57,6 +58,7 @@ public class Comment implements Serializable {
     private Date createDate;
     @JoinColumn(name = "post_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Post postId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne

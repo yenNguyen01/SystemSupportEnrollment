@@ -14,4 +14,8 @@ import java.util.List;
  */
 public interface BannerRepository {
     List<Banner> getBanner();
+    Banner getBannerById(int id);
+    boolean addNewBanner(Banner b);
+    boolean UpdateBanner(Banner b);
+    boolean deleteBanner(int id);
 }

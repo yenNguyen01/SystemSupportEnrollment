@@ -73,7 +73,7 @@ public class CategoryRepositoryImpl implements CategoryRepository{
     @Override
     public List<Category> getCategories() {
         Session s = factory.getObject().getCurrentSession();
-        Query q = s.createQuery("From Category C where C.name != 'Giới thiệu'");
+        Query q = s.createQuery("From Category");
         return q.getResultList();
     }
     

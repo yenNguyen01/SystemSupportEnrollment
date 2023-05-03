@@ -32,7 +32,7 @@
 
         <link href="<c:url value="resources/contentUser/css/bootstrap.min.css"/>" rel="stylesheet">
 
-        <link href="<c:url value="resources/contentUser/css/style.css"/>" rel="stylesheet">
+        <link href="<c:url value="resources/contentUser/css/style.css"/> " rel="stylesheet">
     </head>
     <body>
         <tiles:insertAttribute name="header" />

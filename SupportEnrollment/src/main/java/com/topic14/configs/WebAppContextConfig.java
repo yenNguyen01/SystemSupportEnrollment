@@ -62,6 +62,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/contentUser/js/**").addResourceLocations("/resources/contentUser/js/");
+        registry.addResourceHandler("/contentUser/css/**").addResourceLocations("/resources/contentUser/css/");
+        registry.addResourceHandler("/contentUser/img/**").addResourceLocations("/resources/contentUser/img/");
+        registry.addResourceHandler("/contentUser/lib/**").addResourceLocations("/resources/contentUser/lib/");
     }
 
     @Bean(name = "validator")

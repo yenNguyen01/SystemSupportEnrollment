@@ -21,11 +21,31 @@
         <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
     </definition>
     <definition name="detailPost" extends="baseLayoutUser">
-        <put-attribute name="title" value="" />
+        <put-attribute name="title" value="Chi tiết bài đăng" />
         <put-attribute name="content" value="/WEB-INF/pages/detailPost.jsp" />
     </definition>
-        <definition name="managePost" extends="baseLayoutUser">
-        <put-attribute name="title" value="" />
+    <definition name="managePost" extends="baseLayoutUser">
+        <put-attribute name="title" value="Quản lý bài đăng" />
         <put-attribute name="content" value="/WEB-INF/pages/managePost.jsp" />
-    </definition>     
+    </definition>
+    <definition name="addnew-Post" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thêm mới bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/addnew-Post.jsp" />
+    </definition> 
+    <definition name="manageBanner" extends="baseLayoutUser">
+        <put-attribute name="title" value="Quản lý Banner" />
+        <put-attribute name="content" value="/WEB-INF/pages/manageBanner.jsp" />
+    </definition> 
+    <definition name="addNew-Banner" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thêm mới Banner" />
+        <put-attribute name="content" value="/WEB-INF/pages/addNew-Banner.jsp" />
+    </definition>
+     <definition name="client-category" extends="baseLayoutUser">
+        <put-attribute name="title" value="Danh mục bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/client-category.jsp" />
+    </definition>
+    <definition name="manageUser" extends="baseLayoutUser">
+        <put-attribute name="title" value="Danh mục bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/manageUser.jsp" />
+    </definition>
 </tiles-definitions>
