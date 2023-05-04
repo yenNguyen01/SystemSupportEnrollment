@@ -18,7 +18,9 @@
 </c:choose>
 <c:url value="/admin/posts/addNew" var="action"/>
 <c:if test="${errMsg != null}">
-    ${errMsg}
+    <div class="alert alert-danger">
+        <strong>Warning!</strong> ${errMsg}
+    </div>
 </c:if>
 <form:form method="post" action="${action}" enctype="multipart/form-data" modelAttribute="post">
     <form:input type="hidden" id="id" name="id" path="id"/>
@@ -34,12 +36,12 @@
     </c:if>
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" id="title" 
-                    path="title" placeholder="Title" name="title" />
+                    path="title" placeholder="Title" name="title" required="true"/>
         <label for="title">Tiêu đề</label>
     </div>
     <div class="form-floating mb-3 mt-3">
         <form:textarea type="text" class="form-control" id="content" style="height: 250px"
-                       path="content" placeholder="Giá sản phẩm" name="content" ></form:textarea>
+                       path="content" placeholder="Giá sản phẩm" name="content" required="true"></form:textarea>
         <label for="content">Nội dung</label>
     </div>
     <div class="form-floating">

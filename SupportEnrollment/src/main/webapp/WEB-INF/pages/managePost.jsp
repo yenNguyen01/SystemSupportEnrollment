@@ -77,4 +77,4 @@
 </ul>
 </div>
 
-<script src="<c:url value="/js/post.js" />"></script>
+<script src="<c:url value="/contentUser/js/post.js" />"></script>

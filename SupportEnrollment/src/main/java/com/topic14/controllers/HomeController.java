@@ -163,13 +163,13 @@ public class HomeController {
             @ModelAttribute(name = "user") @Valid User user,
             BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("errMsg", "Some thing Wrong! Please check again");
             return "register";
         }
-//        String registrationError = "";
-//        if (user.getPassWord().equals(user.getCheckPassWord()) == false) {
-//            registrationError = "Không khớp với mật khẩu đã nhập";
-//            return "register";
-//        }
+        if (user.getPassWord().equals(user.getCheckPassWord()) == false) {
+             model.addAttribute("errMsg", "Repeat password không khớp với password !");
+            return "register";
+        }
         userService.registerUser(user);
         return "redirect:/login";
     }
