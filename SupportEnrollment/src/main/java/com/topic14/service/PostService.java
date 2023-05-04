@@ -5,10 +5,20 @@
  */
 package com.topic14.service;
 
+import com.topic14.pojo.Post;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author admin
  */
 public interface PostService {
-    
+    List<Post> getPosts(Map<String, String> params);
+    List<Post> getPostsByCategory(int cateId);
+    List<Post> getInforSchool();
+    Post getPostById(int id);
+    boolean addNewPost(Post p);
+    boolean UpdatePost(Post p);
+    boolean deletePost(int id);
 }

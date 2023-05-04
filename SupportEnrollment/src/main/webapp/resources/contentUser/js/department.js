@@ -11,10 +11,29 @@ function deleteDepartment(endpoint) {
                 document.getElementById("noti").innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>Thông báo!</strong> Xóa thất bại.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>`
+</div>`;
             }
         });
     }
+}
+
+function Contains(text_one, text_two){
+    if (text_one.indexOf(text_two) !== -1)
+            return true;
+    return false;    
+}
+
+function searchContent(){
+    let kw = document.getElementById("search").value;
+    let trs = document.getElementsByClassName("tr-search");
+    Array.from(trs).forEach((tr)=>{
+        if(!Contains(tr.textContent.toLowerCase(), kw)){
+            tr.style.display="none";
+        }
+        else{
+            tr.style.display="";
+        }
+    });
 }
 
 

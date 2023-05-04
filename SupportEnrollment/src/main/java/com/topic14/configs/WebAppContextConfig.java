@@ -7,12 +7,20 @@ package com.topic14.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.topic14.formatter.CategoryFormatter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Properties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -96,17 +104,51 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         resolver.setDefaultEncoding("UTF-8");
         return resolver;
     }
-
-    @Bean
-    public Cloudinary cloudinary() {
-        Cloudinary cloudinary
-                = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "dp50hyprx",
-                        "api_key", "919543544232649",
-                        "api_secret", "UCT8SrEd9xOE3FuTYo1f4AUamhk",
-                        "secure", true));
-        return cloudinary;
+    
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new CategoryFormatter());
     }
+    
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        StringHttpMessageConverter stringConverter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
+        converters.add(stringConverter);
+    }
+
+//    @Bean
+//    public Cloudinary cloudinary() {
+//        Cloudinary cloudinary
+//                = new Cloudinary(ObjectUtils.asMap(
+//                        "cloud_name", "dp50hyprx",
+//                        "api_key", "919543544232649",
+//                        "api_secret", "UCT8SrEd9xOE3FuTYo1f4AUamhk",
+//                        "secure", true));
+//        return cloudinary;
+//    }
+    
+//    @Bean
+//    public JavaMailSender getMailSender(){
+//        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//        //Sử dụng gmail
+//        mailSender.setHost("smtp.gmail.com");
+//        mailSender.setPort(587);
+//        mailSender.setUsername("minitham1402@gmail.com");
+//        mailSender.setPassword("tham1402Hong!");
+//        
+//        Properties javaMailProperties = new Properties();
+//        javaMailProperties.put("mail.smtp.auth", true);
+//        javaMailProperties.put("mail.smtp.starttls.enable", true);
+//        javaMailProperties.put("mail.smtp.starttls.required", true);
+//        javaMailProperties.put("mail.smtp.ssl.enable", true);
+//  
+////        javaMailProperties.put("mail.transport.protocol", "smtp");
+////        javaMailProperties.put("mail.debug", "true");
+//        
+//        mailSender.setJavaMailProperties(javaMailProperties);
+//        return mailSender;
+//    }
+    
 //    @Override
 //    public void addFormatters(FormatterRegistry registry) {
 //        registry.addFormatter(new CategoryFormatter());

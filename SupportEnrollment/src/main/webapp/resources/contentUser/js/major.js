@@ -10,6 +10,21 @@ function formData(ma, n, c, depId) {
 }
 
 function updateMajor(endpoint) {
+    if (name.value.length > 200) {
+        document.getElementById("noti").innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Thông báo!</strong> Tên ngành không vượt quá 200 ký tự.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`;
+        return;
+    }
+
+    if (code.value.length > 100) {
+        document.getElementById("noti").innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Thông báo!</strong> Mã ngành không vượt quá 100 ký tự.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`;
+        return;
+    }
     endpoint = endpoint + String(id.value);
     fetch(endpoint, {
         method: "put",
@@ -70,6 +85,24 @@ function deleteMajor(endpoint, id) {
 
 }
 
+function Contains(text_one, text_two){
+    if (text_one.indexOf(text_two) !== -1)
+            return true;
+    return false;    
+}
+
+function searchContent(){
+    let kw = document.getElementById("search").value;
+    let trs = document.getElementsByClassName("tr-search");
+    Array.from(trs).forEach((tr)=>{
+        if(!Contains(tr.textContent.toLowerCase(), kw)){
+            tr.style.display="none";
+        }
+        else{
+            tr.style.display="";
+        }
+    });
+}
 
 
 

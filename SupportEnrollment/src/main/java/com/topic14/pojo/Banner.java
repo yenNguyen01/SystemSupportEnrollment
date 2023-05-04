@@ -18,8 +18,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -36,6 +38,34 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Banner.findByCreateDate", query = "SELECT b FROM Banner b WHERE b.createDate = :createDate")})
 public class Banner implements Serializable {
 
+    /**
+     * @return the isActive
+     */
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    /**
+     * @param isActive the isActive to set
+     */
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +81,11 @@ public class Banner implements Serializable {
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @Column(name = "isActive")
+    private Boolean isActive;
+    
+     @Transient
+    private MultipartFile file;
 
     public Banner() {
     }

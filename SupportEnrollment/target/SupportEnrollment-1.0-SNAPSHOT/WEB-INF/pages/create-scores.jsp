@@ -24,7 +24,10 @@
             <strong>Thông báo!</strong> ${succMsg}
         </div>
     </c:if>
-    <form:form method="post" action="${action}" modelAttribute="diem">
+    
+    <div class="text-center mt-4 me-2 ms-2" id="thongbao"></div>
+    
+    <form:form onsubmit="return checkValue()" method="post" action="${action}" modelAttribute="diem">
         <h2 class="title-create">Thông tin điểm chuẩn</h2>
         <div class="mb-3">
             <form:select path="year" name="year" id="year" class="form-select" aria-label="Default select example">
@@ -42,10 +45,10 @@
             </form:select>
         </div>
                 
-        <div class="mb-3 row">
+        <div class="mb-3 row was-validated">
             <label for="score" class="col-sm-2 col-form-label">Điểm</label>
             <div class="col-sm-10">
-                <form:input type="text" name="score" path="score" class="form-control" id="score"/>
+                <form:input type="text" name="score" path="score" class="form-control is-invalid" id="score" required="true"/>
             </div>
         </div>
      
@@ -65,8 +68,10 @@
     <a href="<c:url value="/admin/scores"/>"><i class="fa fa-arrow-left me-2" aria-hidden="true"></i>Trở về trang danh sách điểm chuẩn</a>
 </div>
 
+<script src="<c:url value="/contentUser/js/create-score.js"/>"></script>
+
 <script>
     window.onload=function (){
         document.getElementById("year").value=new Date().getFullYear();
-    }
+    };
 </script>

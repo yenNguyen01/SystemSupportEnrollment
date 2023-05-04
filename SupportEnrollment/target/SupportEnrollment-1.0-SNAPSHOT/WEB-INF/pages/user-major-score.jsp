@@ -107,3 +107,11 @@
         </a>
     </p>
 </c:if>
+
+<c:if test="${scores!=null}">
+    <script>
+        window.onload=function (){
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
+</c:if>

@@ -18,4 +18,5 @@ public interface DepartmentRepository {
     boolean createdDepartment(Department d);
     boolean updateDepartment(Department d);
     boolean deleteDepartment(int id);
+    boolean checkDepartmentName(String name);
 }

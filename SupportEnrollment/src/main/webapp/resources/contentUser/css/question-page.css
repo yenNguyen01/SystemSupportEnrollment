@@ -1,0 +1,38 @@
+.noti{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    font-family: emoji;
+}
+
+.noti h3{
+    text-transform: uppercase;
+    color: #1d559f;
+    font-weight: 300;
+}
+
+.noti p{
+    margin-top: 1rem;
+    font-size: 17px;
+}
+
+.noti small{
+    font-size: 15px;
+    font-style: italic;
+}
+
+.poser-form{
+    font-family: math;
+    color: #1d559f;
+    width: 68%;
+}
+
+.poser-content{
+    font-family: math;
+}
+
+.poser-content h5{
+    text-transform: uppercase;
+    color: #1d559f;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}

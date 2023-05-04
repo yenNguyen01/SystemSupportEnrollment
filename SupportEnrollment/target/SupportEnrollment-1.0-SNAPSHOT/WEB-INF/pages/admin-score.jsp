@@ -72,11 +72,6 @@
     <p class="text-end">Trang ${page_now}/${total_page}</p>
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
             <c:forEach var="i" begin="1" step="1" end="${total_page}">
                 <c:choose>
                     <c:when test="${majorid!=0}">
@@ -87,11 +82,6 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
         </ul>
     </nav>
 
@@ -127,13 +117,13 @@
                     </select>
                     <label for="majId">Ngành học</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="score" placeholder="Nhập điểm . . .">
+                <div class="form-floating mb-3 was-validated">
+                    <input type="text" class="form-control is-invalid" id="score" placeholder="Nhập điểm . . ." required="true">
                     <label for="score">Điểm</label>
                 </div>
                 <div class="form-floating mb-3">
                     <textarea type="text" class="form-control" id="note" style="height: 80px" 
-                              placeholder="Nhập ghi chú . . ." ></textarea>
+                              placeholder="Nhập ghi chú . . ."  value=""></textarea>
                     <label for="note">Ghi chú</label>
                 </div>
             </div>
@@ -163,6 +153,31 @@
     }
 
     function updateData(endpoint) {
+
+        if (!Number(diem.value))
+        {
+            document.getElementById("noti").innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Thông báo!</strong> Trường điểm không chứa ký tự chữ cái hoặc một vài ký tự đặc biệt.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`;
+            return;
+        }
+        if (Number(diem.value) < 0) {
+            document.getElementById("noti").innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Thông báo!</strong> Trường điểm không phải số âm.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`;
+            return;
+        }
+
+        if (ghi_chu.value.length > 500) {
+            document.getElementById("noti").innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Thông báo!</strong> Ghi chú không vượt quá 500 ký tự.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>`;
+            return;
+        }
+
         endpoint = endpoint + ma.value;
 
         fetch(endpoint, {

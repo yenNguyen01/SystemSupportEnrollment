@@ -22,9 +22,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -46,6 +49,34 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Post.findByModifyDate", query = "SELECT p FROM Post p WHERE p.modifyDate = :modifyDate")})
 public class Post implements Serializable {
 
+    /**
+     * @return the image
+     */
+    public String getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +84,11 @@ public class Post implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 500)
+    @NotNull(message = "{err.null}")
     @Column(name = "title")
     private String title;
     @Size(max = 5000)
+    @NotNull(message = "{err.null}")
     @Column(name = "content")
     private String content;
     @Size(max = 500)
@@ -85,6 +118,11 @@ public class Post implements Serializable {
     private Set<Comment> commentSet;
     @OneToMany(mappedBy = "postId")
     private Set<Reply> replySet;
+    @Size(max = 200)
+    @Column(name = "image")
+    private String image;
+    @Transient
+    private MultipartFile file;
 
     public Post() {
     }

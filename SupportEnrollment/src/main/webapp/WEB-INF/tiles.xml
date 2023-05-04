@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
 <tiles-definitions>
     <definition name="baseLayoutUser" template="/WEB-INF/layout/user/base.jsp">
         <put-attribute name="title" value="" />
@@ -12,6 +14,14 @@
         <put-attribute name="title" value="Trang chủ" />
         <put-attribute name="content" value="/WEB-INF/pages/home.jsp" />
     </definition>  
+    <definition name="login" extends="baseLayoutUser">
+        <put-attribute name="title" value="Đăng nhập" />
+        <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+    </definition>  
+    <definition name="register" extends="baseLayoutUser">
+        <put-attribute name="title" value="Đăng ký" />
+        <put-attribute name="content" value="/WEB-INF/pages/register.jsp" />
+    </definition>
     <definition name="admin-dep" extends="baseLayoutUser">
         <put-attribute name="title" value="Quản lý khoa" />
         <put-attribute name="content" value="/WEB-INF/pages/admin-dep.jsp" />
@@ -43,5 +53,57 @@
     <definition name="user-major-score" extends="baseLayoutUser">
         <put-attribute name="title" value="Thông tin ngành-điểm" />
         <put-attribute name="content" value="/WEB-INF/pages/user-major-score.jsp" />
-    </definition>      
+    </definition>
+    <definition name="noties-page" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thông báo" />
+        <put-attribute name="content" value="/WEB-INF/pages/noties-page.jsp" />
+    </definition>
+    <definition name="create-noti" extends="baseLayoutUser">
+        <put-attribute name="title" value="Tạo thông báo" />
+        <put-attribute name="content" value="/WEB-INF/pages/create-noti.jsp" />
+    </definition>    
+    <definition name="question-page" extends="baseLayoutUser">
+        <put-attribute name="title" value="Câu hỏi" />
+        <put-attribute name="content" value="/WEB-INF/pages/question-page.jsp" />
+    </definition>  
+    <definition name="frequent-question" extends="baseLayoutUser">
+        <put-attribute name="title" value="Câu hỏi thường gặp" />
+        <put-attribute name="content" value="/WEB-INF/pages/frequent-question.jsp" />
+    </definition>  
+    <definition name="statsUser" extends="baseLayoutUser">
+        <put-attribute name="title" value="Báo cáo" />
+        <put-attribute name="content" value="/WEB-INF/pages/statsUser.jsp" />
+    </definition>  
+    <definition name="chat-realtime" extends="baseLayoutUser">
+        <put-attribute name="title" value="Khung Chat" />
+        <put-attribute name="content" value="/WEB-INF/pages/chat-realtime.jsp" />
+    </definition>
+    <definition name="detailPost" extends="baseLayoutUser">
+        <put-attribute name="title" value="Chi tiết bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/detailPost.jsp" />
+    </definition>
+    <definition name="managePost" extends="baseLayoutUser">
+        <put-attribute name="title" value="Quản lý bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/managePost.jsp" />
+    </definition>
+    <definition name="addnew-Post" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thêm mới bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/addnew-Post.jsp" />
+    </definition> 
+    <definition name="manageBanner" extends="baseLayoutUser">
+        <put-attribute name="title" value="Quản lý Banner" />
+        <put-attribute name="content" value="/WEB-INF/pages/manageBanner.jsp" />
+    </definition> 
+    <definition name="addNew-Banner" extends="baseLayoutUser">
+        <put-attribute name="title" value="Thêm mới Banner" />
+        <put-attribute name="content" value="/WEB-INF/pages/addNew-Banner.jsp" />
+    </definition>
+     <definition name="client-category" extends="baseLayoutUser">
+        <put-attribute name="title" value="Danh mục bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/client-category.jsp" />
+    </definition>
+    <definition name="manageUser" extends="baseLayoutUser">
+        <put-attribute name="title" value="Danh mục bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/manageUser.jsp" />
+    </definition>
 </tiles-definitions>

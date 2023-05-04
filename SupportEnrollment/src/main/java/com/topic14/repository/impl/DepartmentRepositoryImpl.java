@@ -13,6 +13,7 @@ import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmLazyWithNoProxyEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,9 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     public boolean createdDepartment(Department d) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
+            if (checkDepartmentName(d.getName())) {
+                return false;
+            }
             s.save(d);
             return true;
         } catch (HibernateException ex) {
@@ -90,6 +94,17 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         Session s = this.factory.getObject().getCurrentSession();
         Department d = s.get(Department.class, id);
         return d;
+    }
+
+    @Override
+    public boolean checkDepartmentName(String name) {
+        Session s = this.factory.getObject().getCurrentSession();
+
+        Query q = s.createQuery("From Department Where UPPER(name)=:name");
+        q.setParameter("name", name.toUpperCase());
+        //Lón hơn 0 thì tồn tại, Bé hơn 0 thì chưa tồn tại
+        boolean kq = q.getResultList().toArray().length > 0 ? true : false;
+        return kq;
     }
 
 }

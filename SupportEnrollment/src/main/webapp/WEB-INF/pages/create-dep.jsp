@@ -12,7 +12,7 @@
 
 <link href="<c:url value="/contentUser/css/create-dep.css"/>" rel="stylesheet"/>
 <c:if test="${errMsg!=null}">
-    <div class="alert alert-danger alert-dismissible">
+    <div class="alert alert-danger alert-dismissible mt-4 text-center">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         <strong>Thông báo!</strong> ${errMsg}
     </div>
@@ -26,24 +26,24 @@
         <c:url value="/admin/department/create" var="action" />
     </c:otherwise>
 </c:choose>
-
+<div class="text-center mt-4 me-4 ms-4" id="thongbao"></div>
 <div class="container create-dep-fm">
     <h2 class="create-dep">Thông tin khoa</h2>
-    <form:form method="post" action="${action}" enctype="multipart/form-data" modelAttribute="department">
-        <div class="form-floating mb-3">
-            <form:input type="text" class="form-control" id="name" path="name" placeholder="Nhập tên khoa . . ." name="name"/>
+    <form:form onsubmit="return checkValue();" method="post" action="${action}" enctype="multipart/form-data" modelAttribute="department">
+        <div class="form-floating mb-3 was-validated">
+            <form:input type="text" class="form-control is-invalid" id="dname" path="name" placeholder="Nhập tên khoa . . ." name="name" required="true"/>
             <label for="name">Tên khoa</label>
         </div>
-        <div class="form-floating mb-3">
-            <form:textarea class="form-control" placeholder="Nhập mô tả" style="height: 150px" id="description" path="description" name="description"/>
+        <div class="form-floating mb-3 was-validated">
+            <form:textarea class="form-control is-invalid" placeholder="Nhập mô tả" style="height: 150px" id="ddescription" path="description" name="description" required="true"/>
             <label for="description">Mô tả</label>
         </div>
-        <div class="form-floating mb-3">
-            <form:input type="text" class="form-control" id="website" path="website" placeholder="Nhập đường link website . . ." name="website"/>
+        <div class="form-floating mb-3 was-validated">
+            <form:input type="text" class="form-control is-invalid" id="dwebsite" path="website" placeholder="Nhập đường link website . . ." name="website" required="true"/>
             <label for="website">Link website</label>
         </div>
         <div class="form-floating mb-3">
-            <form:input type="text" class="form-control" id="embedVideo" path="embedVideo" placeholder="Nhập đường link website . . ." name="embedVideo"/>
+            <form:input type="text" class="form-control" id="dembedVideo" path="embedVideo" placeholder="Nhập đường link website . . ." name="embedVideo" />
             <label for="embedVideo">Link nhúng video</label>
         </div>
         <div class="input-group mb-3">
@@ -71,3 +71,6 @@
         </c:choose>
     </form:form>
 </div>
+
+<script src="<c:url value="/contentUser/js/create-dep.js"/>"></script>
+

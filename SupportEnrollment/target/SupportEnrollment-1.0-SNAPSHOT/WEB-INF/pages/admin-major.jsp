@@ -17,7 +17,7 @@ Author     : Computer
         </a>
     </div>
     <div class="col-md-9 col-8">
-        <input type="text" id="search" placeholder="Nhập từ khóa . . .">
+        <input onkeyup="searchContent()" type="text" id="search" placeholder="Nhập từ khóa . . .">
     </div>
 </div>
 
@@ -34,7 +34,7 @@ Author     : Computer
     <tbody>
         <c:forEach items="${majors}" var="m">
             <c:url value="/api/major/delete/${m.id}" var="action_del" />
-            <tr id="major${m.id}">
+            <tr class="tr-search" id="major${m.id}">
                 <td>
                     <i onclick="formData(${m.id}, '${m.name}', '${m.code}', ${m.departmentId.id})" 
                        class="fa fa-pencil-square me-1" aria-hidden="true" data-bs-toggle="modal" 
@@ -61,15 +61,15 @@ Author     : Computer
             </div>
             <div class="modal-body">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="idMajor" name="id">
+                    <input type="text" class="form-control" id="idMajor" name="id" readonly="true">
                     <label for="id">Mã</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nameMajor" name="name">
+                <div class="form-floating mb-3 was-validated">
+                    <input type="text" class="form-control is-invalid" id="nameMajor" name="name" required="true">
                     <label for="name">Tên ngành</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="codeMajor" name="codeMajor">
+                <div class="form-floating mb-3 was-validated">
+                    <input type="text" class="form-control is-invalid" id="codeMajor" name="codeMajor" required="true">
                     <label for="code">Mã ngành</label>
                 </div>
                 <select class="form-select mb-3" id="depIdMajor" name="depIdMajor">
@@ -88,4 +88,4 @@ Author     : Computer
     </div>
 </div>
 
-<script src="<c:url value="/resources/contentUser/js/major.js"/>"></script>
+<script src="<c:url value="/contentUser/js/major.js"/>"></script>

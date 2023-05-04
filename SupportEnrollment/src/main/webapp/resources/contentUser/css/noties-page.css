@@ -1,0 +1,58 @@
+.title-noties{
+    color: #1d559f;
+    font-family: emoji;
+    font-weight: bold;
+}
+
+.btn-create{
+    text-transform: capitalize;
+    text-decoration: none;
+    padding: 10px 40px;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    display: inline-block;
+    font-weight: bold;
+    background-color: #362FD9;
+    color: #DEFCF9;
+}
+
+.btn-create:hover{
+    background-color: #3C84AB;
+    color: #DEFCF9;
+}
+
+.noti{
+    font-family: ui-monospace;
+}
+
+.noti h5{
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.noti a{
+    text-decoration: none;
+    font-size: 18px;
+    color: #362FD9;
+    text-transform: capitalize;
+}
+
+.noti a:hover{
+    color: orangered;
+    text-transform: uppercase;
+}
+
+.fa-trash{
+    color: red;
+}
+
+.tag span{
+    padding: 4px 12px;
+    border: 1px solid orange;
+    border-radius: 10px 2px;
+    color: whitesmoke;
+    font-family: ui-monospace;
+    font-weight: bold;
+    background-color: orangered;
+    text-transform: uppercase;
+}

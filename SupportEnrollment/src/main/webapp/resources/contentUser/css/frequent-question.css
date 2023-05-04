@@ -1,0 +1,21 @@
+.title{
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: #1d559f;
+    font-family: emoji;
+}
+
+.content-question{
+    font-family: emoji;
+    color: red;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.content-answer{
+    font-family: "serif";
+    margin-bottom: 15px
+}
+

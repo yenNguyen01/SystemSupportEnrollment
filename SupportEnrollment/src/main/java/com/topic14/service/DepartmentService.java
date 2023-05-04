@@ -18,4 +18,5 @@ public interface DepartmentService {
     boolean createdDepartment(Department d);
     boolean updateDepartment(Department d, int id);
     boolean deleteDepartment(int id);
+    boolean checkDepartmentName(String name);
 }

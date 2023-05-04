@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-9 col-8">
         <i class="fa fa-search" aria-hidden="true"></i>
-        <input type="text" id="search" placeholder="Input keyword . . ."/>
+        <input onkeyup="searchContent()" type="text" id="search" placeholder="Input keyword . . ."/>
     </div>
 </div>
 <table class="table text-center table-hover">
@@ -32,7 +32,7 @@
         <c:forEach items="${departments}" var="d">
             <c:url value="/admin/update/department/${d.id}" var="url" /> 
             <c:url value="/api/department/delete/${d.id}" var="url_del" /> 
-            <tr>
+            <tr class="tr-search">
                 <td>
                     <a href="${url}"><i class="fa fa-pencil-square me-1" aria-hidden="true"></i></a><!-- comment -->
                     <i onclick="deleteDepartment('${url_del}')" class="fa fa-trash" aria-hidden="true"></i>

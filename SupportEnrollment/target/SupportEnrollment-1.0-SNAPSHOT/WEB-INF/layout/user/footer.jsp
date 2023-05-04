@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<footer class="container-fluid py-4 bg-dark">
+<footer class="container-fluid py-4 bg-dark mt-4">
     <div class="container">
         <div class="flex_column av_two_fifth  first el_before_av_one_third">
             <div class="d-flex align-items-center justify-content-between small">

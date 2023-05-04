@@ -23,14 +23,14 @@ import org.springframework.stereotype.Service;
  * @author Computer
  */
 @Service
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepo;
-    
+
     @Autowired
     private Cloudinary cloudinary;
-    
+
     @Override
     public List<Department> getDepartments() {
         return this.departmentRepo.getDepartments();
@@ -43,7 +43,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
     public boolean createdDepartment(Department d) {
-        if(!d.getFile().isEmpty()){
+        if (!d.getFile().isEmpty()) {
             try {
                 java.util.Map rs = this.cloudinary.uploader().upload(d.getFile().getBytes(),
                         ObjectUtils.asMap("resource_type", "auto"));
@@ -61,7 +61,14 @@ public class DepartmentServiceImpl implements DepartmentService{
         d.setId(id);
         d.setCreateDate(d_old.getCreateDate());
         d.setImage(d_old.getImage());
-        if(!d.getFile().isEmpty()){
+
+        if (d_old.getName().equalsIgnoreCase(d.getName()) == false) {
+            if(checkDepartmentName(d.getName())){
+                return false;
+            }
+        }
+
+        if (!d.getFile().isEmpty()) {
             try {
                 java.util.Map rs = this.cloudinary.uploader().upload(d.getFile().getBytes(),
                         ObjectUtils.asMap("resource_type", "auto"));
@@ -77,5 +84,10 @@ public class DepartmentServiceImpl implements DepartmentService{
     public boolean deleteDepartment(int id) {
         return this.departmentRepo.deleteDepartment(id);
     }
-    
+
+    @Override
+    public boolean checkDepartmentName(String name) {
+        return this.departmentRepo.checkDepartmentName(name);
+    }
+
 }

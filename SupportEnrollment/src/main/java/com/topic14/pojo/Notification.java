@@ -6,6 +6,7 @@
 package com.topic14.pojo;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -22,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,43 +45,82 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Notification.findByEndTime", query = "SELECT n FROM Notification n WHERE n.endTime = :endTime")})
 public class Notification implements Serializable {
 
+    /**
+     * @return the endCalendar
+     */
+    public String getEndCalendar() {
+        return endCalendar;
+    }
+
+    /**
+     * @param endCalendar the endCalendar to set
+     */
+    public void setEndCalendar(String endCalendar) {
+        this.endCalendar = endCalendar;
+    }
+
+    /**
+     * @return the startCalendar
+     */
+    public String getStartCalendar() {
+        return startCalendar;
+    }
+
+    /**
+     * @param startCalendar the startCalendar to set
+     */
+    public void setStartCalendar(String startCalendar) {
+        this.startCalendar = startCalendar;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
-    @Size(max = 200)
+
+    @Size(max = 2000)
     @Column(name = "content")
     private String content;
-    
+
+    @Size(max = 200)
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    
+
     @Column(name = "isRead")
     private Boolean isRead;
-    
+
     @Column(name = "start_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
-    
+
     @Column(name = "end_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-    
+
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
-    
+
     @OneToMany(mappedBy = "notiId")
     private Set<Answer> answerSet;
-    
+
     @OneToMany(mappedBy = "notiId")
     private Set<Question> questionSet;
+    
+    @Transient
+    private String startCalendar;
+    
+    @Transient
+    private String endCalendar;
 
     public Notification() {
+        createDate = new Date();
     }
 
     public Notification(Integer id) {
@@ -92,6 +133,20 @@ public class Notification implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -184,5 +239,5 @@ public class Notification implements Serializable {
     public String toString() {
         return "com.topic14.pojo.Notification[ id=" + id + " ]";
     }
-    
+
 }

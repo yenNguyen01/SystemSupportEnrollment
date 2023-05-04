@@ -20,9 +20,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -49,39 +52,65 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Size(max = 50)
+    @NotNull(message = "{err.null}")
     @Column(name = "userName")
     private String userName;
-    @Size(max = 50)
+
+    @Size(max = 100)
     @Column(name = "passWord")
     private String passWord;
+
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 100)
+    @NotNull(message = "{err.null}")
     @Column(name = "email")
     private String email;
+
     @Size(max = 200)
     @Column(name = "avatar")
     private String avatar;
+
     @Size(max = 100)
     @Column(name = "role")
     private String role;
+    
     @Column(name = "isActive")
     private Boolean isActive;
+
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+
+    @Size(max = 100)
+    @NotNull(message = "{err.null}")
+    @Column(name = "name")
+    private String name;
+
     @OneToMany(mappedBy = "userId")
     private Set<Notification> notificationSet;
+
     @OneToMany(mappedBy = "userId")
     private Set<Answer> answerSet;
+
     @OneToMany(mappedBy = "userId")
     private Set<Post> postSet;
+
     @OneToMany(mappedBy = "userId")
     private Set<Question> questionSet;
+
     @OneToMany(mappedBy = "userId")
     private Set<Comment> commentSet;
+
     @OneToMany(mappedBy = "userId")
     private Set<Reply> replySet;
+
+    @Transient
+    private MultipartFile file;
+
+    @Transient
+    private String checkPassWord;
 
     public User() {
     }
@@ -154,6 +183,20 @@ public class User implements Serializable {
         this.createDate = createDate;
     }
 
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @XmlTransient
     public Set<Notification> getNotificationSet() {
         return notificationSet;
@@ -208,6 +251,34 @@ public class User implements Serializable {
         this.replySet = replySet;
     }
 
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    /**
+     * @return the checkPassWord
+     */
+    public String getCheckPassWord() {
+        return checkPassWord;
+    }
+
+    /**
+     * @param checkPassWord the checkPassWord to set
+     */
+    public void setCheckPassWord(String checkPassWord) {
+        this.checkPassWord = checkPassWord;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -232,5 +303,5 @@ public class User implements Serializable {
     public String toString() {
         return "com.topic14.pojo.User[ id=" + id + " ]";
     }
-    
+
 }

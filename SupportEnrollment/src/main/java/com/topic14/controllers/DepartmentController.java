@@ -45,7 +45,7 @@ public class DepartmentController {
             return "redirect:/admin/departments";
         }
         else{
-            model.addAttribute("errMsg", "Thông tin khoa thêm không thành công");
+            model.addAttribute("errMsg", "Thông tin khoa thêm không thành công do lỗi hệ thống hoặc bản ghi đã tồn tại.");
         }
         return "create-dep";
     }
@@ -64,7 +64,7 @@ public class DepartmentController {
                 return "redirect:/admin/departments";
             }
             else{
-                model.addAttribute("errMsg", "Thông tin khoa cập nhật không thành công");
+                model.addAttribute("errMsg", "Thông tin khoa cập nhật không thành công do lỗi hệ thống hoặc bản ghi đã tồn tại.");
             }
         }
         else{

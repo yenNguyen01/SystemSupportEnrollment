@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,29 +38,69 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Answer.findByCreatedDate", query = "SELECT a FROM Answer a WHERE a.createdDate = :createdDate")})
 public class Answer implements Serializable {
 
+    /**
+     * @return the notificationId
+     */
+    public int getNotificationId() {
+        return notificationId;
+    }
+
+    /**
+     * @param notificationId the notificationId to set
+     */
+    public void setNotificationId(int notificationId) {
+        this.notificationId = notificationId;
+    }
+
+    /**
+     * @return the questId
+     */
+    public int getQuestId() {
+        return questId;
+    }
+
+    /**
+     * @param questId the questId to set
+     */
+    public void setQuestId(int questId) {
+        this.questId = questId;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Size(max = 2000)
     @Column(name = "content")
     private String content;
+    
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
+    
     @JoinColumn(name = "noti_id", referencedColumnName = "id")
     @ManyToOne
     private Notification notiId;
+    
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     @ManyToOne
     private Question questionId;
+    
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private User userId;
 
+    @Transient
+    private int notificationId;
+
+    @Transient
+    private int questId;
+
     public Answer() {
+        createdDate = new Date();
     }
 
     public Answer(Integer id) {
@@ -138,5 +179,5 @@ public class Answer implements Serializable {
     public String toString() {
         return "com.topic14.pojo.Answer[ id=" + id + " ]";
     }
-    
+
 }
